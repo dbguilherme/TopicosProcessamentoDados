@@ -95,7 +95,7 @@ public class ReduceJoin {
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
      
-      String st[]= value.toString().split("::");
+      String st[]= value.toString().split(":");
       int age = Integer.parseInt(st[2]);
       System.out.println(age);
       if(age>10)
@@ -111,7 +111,7 @@ public class ReduceJoin {
 
 	  public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 		  
-		  String st[]= value.toString().split("::");
+		  String st[]= value.toString().split(":");
 		  int rate= Integer.parseInt(st[3]);
 		  word.set(key.toString());
 	      context.write(new Text(st[0]), new Text(Integer.toString(rate)));	      	    
@@ -154,8 +154,8 @@ public class ReduceJoin {
 	  Job job = new Job(conf, "Reduce-side join");
 	  job.setJarByClass(ReduceJoin.class);
 	  
-	  Path p1=new Path("/tmp/users.dat");
-	  Path p2=new Path("/tmp/ratings.dat");
+	  Path p1=new Path("DATA/users.dat");
+	  Path p2=new Path("DATA/ratings.dat");
 	  
 	  
 	   
