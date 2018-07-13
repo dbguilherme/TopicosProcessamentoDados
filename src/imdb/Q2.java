@@ -28,15 +28,9 @@ public class Q2 {
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException
 		{
 			String line=value.toString();
-			String[] currentUserTuples=line.split(":");
-			
-			context.write( new Text (currentUserTuples[0]), value);
-			
-//			int currentAgeValue = Integer.parseInt(currentUserTuples[2].trim());
-//			if(currentUserTuples[1].trim().equalsIgnoreCase("M")&&currentAgeValue<=targetAge)
-//			{
-//				context.write(new Text("UserId :: "+currentUserTuples[0].trim()), one);
-//			}			
+			String[] currentUserTuples=line.split(":");			
+			context.write( new Text (currentUserTuples[0]), value);		
+
 		}
 	}
 	
@@ -46,10 +40,10 @@ public class Q2 {
 		public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException
 		{
 			int count=0;
-			for (Iterator<Text> iterator = values.iterator(); iterator.hasNext();) {
-				Text value = iterator.next();
-				count++;
-			}
+			//for (Iterator<Text> iterator = values.iterator(); iterator.hasNext();) {
+			for(Text pr:values){
+	            count++;
+	        }
 			if(count>100) {
 				context.write(key, new IntWritable(count));
 						
